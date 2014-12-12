@@ -7,8 +7,14 @@ module.exports = function(content) {
   }
 
 
-  var name = this.resourcePath.replace(this.options.context + path.sep, '').replace('.dust', '').split(path.sep).join('/'),
+  var name = this.resourcePath.replace(this.options.context, '').split(path.sep).join('/'),
     compiled = dust.compile(content, name);
 
-  return "module.exports = " + compiled;
+  return "module.exports = function(dust) {" +
+  	"if (dust.isDebug) {" +
+  	  "console.log(\"[dust] Registering template: " + name + "\"); " +
+  	"}" +
+  	compiled +
+  	"return \"" + name + "\";" +
+  "};";
 };
