@@ -7,7 +7,10 @@ module.exports = function(content) {
   }
   var callback = this.async();
 
-  var name = this.resourcePath.replace(this.options.context, '').split(path.sep).join('/');
+  var name = this.resourcePath
+    .replace(this.options.context, '') // Remove unecessary path info
+    .replace(new RegExp("^" + path.sep), '') // Remove leading path separator
+    .split(path.sep).join('/'); // Use unix path separator
   try {
     var compiled = dust.compile(content, name);
   } catch (err) {
