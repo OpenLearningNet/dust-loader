@@ -15,11 +15,10 @@ module.exports = function(content) {
   }
 
   var result =
-    "module.exports = function(dust) {" +
-      "dust.log(\"Registering template: " + name + "\", \"DEBUG\"); " +
-      compiled +
-      "return \"" + name + "\";" +
-    "};";
+    "var dust = require('dustjs-linkedin');" +
+    compiled +
+    "dust.log(\"Registering template: " + name + "\", \"DEBUG\"); " +
+    "module.exports = \"" + name + "\";";
 
   callback(null, result);
 };

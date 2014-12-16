@@ -31,8 +31,7 @@ You will need to bundle the [dust core](https://github.com/linkedin/dustjs/blob/
 
 ```javascript
 var dust = require('dustjs-linkedin');
-var registerTemplate = require('./views/foo/bar.tpl');
-var templateID = registerTemplate(dust);
+var templateID = require('./views/foo/bar.dust');
 
 dust.render(templateID, context, function(err, result){
 	// result holds the rendered HTML code
