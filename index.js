@@ -5,14 +5,21 @@ module.exports = function(content) {
   if (this.cacheable) {
     this.cacheable();
   }
+  var callback = this.async();
 
+  var name = this.resourcePath.replace(this.options.context, '').split(path.sep).join('/');
+  try {
+    var compiled = dust.compile(content, name);
+  } catch (err) {
+    return callback(err);
+  }
 
-  var name = this.resourcePath.replace(this.options.context, '').split(path.sep).join('/'),
-    compiled = dust.compile(content, name);
+  var result =
+    "module.exports = function(dust) {" +
+      "dust.log(\"Registering template: " + name + "\", \"DEBUG\"); " +
+      compiled +
+      "return \"" + name + "\";" +
+    "};";
 
-  return "module.exports = function(dust) {" +
-    "dust.log(\"Registering template: " + name + "\", \"DEBUG\"); " +
-    compiled +
-    "return \"" + name + "\";" +
-  "};";
+  callback(null, result);
 };
