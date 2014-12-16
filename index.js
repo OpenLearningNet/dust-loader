@@ -11,10 +11,8 @@ module.exports = function(content) {
     compiled = dust.compile(content, name);
 
   return "module.exports = function(dust) {" +
-  	"if (dust.isDebug) {" +
-  	  "console.log(\"[dust] Registering template: " + name + "\"); " +
-  	"}" +
-  	compiled +
-  	"return \"" + name + "\";" +
+    "dust.log(\"Registering template: " + name + "\", \"DEBUG\"); " +
+    compiled +
+    "return \"" + name + "\";" +
   "};";
 };
