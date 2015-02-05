@@ -7,6 +7,10 @@
 	"peerDependencies": {
 		"dustjs-linkedin": "*"
 	},
+	"repository": {
+		"type" : "git",
+		"url" : "http://github.com/OpenLearningNet/dust-loader.git"
+	},
 	"licenses": [
 		{
 			"type": "MIT",
